@@ -9,18 +9,22 @@ RIGHT = 0
 class Snake:
     def __init__(self):
         self.all_elements = []
-        self.build_snake()
+        self.starting_elements = 3
+        self.build_snake(elements=self.starting_elements)
         self.head = self.all_elements[0]
 
-    def build_snake(self):
-        for _ in range (0, 3):
-            snake_element = Turtle()
-            snake_element.penup()
-            snake_element.shape("square")
-            snake_element.color("white")
-            snake_element.goto(x=STARTING_POSITION[0], y=STARTING_POSITION[1])
-            self.all_elements.append(snake_element)
-            STARTING_POSITION[0] -= MOVE_DISTANCE
+    def build_snake(self, elements):
+        for _ in range(elements):
+            self.extend_snake()
+
+    def extend_snake(self):
+        snake_element = Turtle()
+        snake_element.penup()
+        snake_element.shape("square")
+        snake_element.color("white")
+        snake_element.goto(x=STARTING_POSITION[0], y=STARTING_POSITION[1])
+        self.all_elements.append(snake_element)
+        STARTING_POSITION[0] = (self.all_elements[-1].xcor() - MOVE_DISTANCE)
 
     def body(self):
         return self.all_elements
