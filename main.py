@@ -3,7 +3,9 @@
 # Importing modules
 import time
 from snake import Snake
-from turtle import Turtle, Screen
+from food import Food
+from scoreboard import Scoreboard
+from turtle import Screen
 
 # Snake game nokia screen initial set-up
 nokia_screen = Screen()
@@ -12,9 +14,16 @@ nokia_screen.bgcolor("black")
 nokia_screen.title("Nokia Snake Game")
 nokia_screen.tracer(0)
 
-# Snake initial set-up
+# Snake and food initial set-up
 snake = Snake()
-nokia_screen.update()
+food = Food()
+scoreboard = Scoreboard()
+
+nokia_screen.listen()
+nokia_screen.onkey(snake.up, "Up")
+nokia_screen.onkey(snake.down, "Down")
+nokia_screen.onkey(snake.left, "Left")
+nokia_screen.onkey(snake.right, "Right")
 
 # Game start - boolean
 is_game_on = True
@@ -23,6 +32,11 @@ while is_game_on:
     time.sleep(0.1)
 
     snake.move()
+
+    # Detect collision with food
+    if snake.head.distance(food) < 15:
+        scoreboard.add_point()
+        food.generate()
 
 
 
