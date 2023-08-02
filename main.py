@@ -19,15 +19,15 @@ snake = Snake()
 food = Food()
 scoreboard = Scoreboard()
 
-nokia_screen.listen()
-nokia_screen.onkey(snake.up, "Up")
-nokia_screen.onkey(snake.down, "Down")
-nokia_screen.onkey(snake.left, "Left")
-nokia_screen.onkey(snake.right, "Right")
-
 # Game start - boolean
 is_game_on = True
 while is_game_on:
+    nokia_screen.listen()
+    nokia_screen.onkey(snake.up, "Up")
+    nokia_screen.onkey(snake.down, "Down")
+    nokia_screen.onkey(snake.left, "Left")
+    nokia_screen.onkey(snake.right, "Right")
+
     nokia_screen.update()
     time.sleep(0.1)
 
@@ -41,14 +41,23 @@ while is_game_on:
 
     # Detect collision with wall
     if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
-        scoreboard.game_over()
-        is_game_on = False
+        # scoreboard.game_over()
+        # is_game_on = False
+        scoreboard.reset_score()
+        snake.reset()
+        new_snake = Snake()
+        snake = new_snake
 
     # Detect collision with tail
     for element in snake.all_elements[1:]:
         if snake.head.distance(element) < 10:
-            scoreboard.game_over()
-            is_game_on = False
+            # scoreboard.game_over()
+            # is_game_on = False
+            scoreboard.reset_score()
+            snake.reset()
+            new_snake = Snake()
+            snake = new_snake
+
 
 
 

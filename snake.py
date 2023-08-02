@@ -12,6 +12,12 @@ class Snake:
         self.starting_elements = 3
         self.build_snake(elements=self.starting_elements)
         self.head = self.all_elements[0]
+        self.head.goto(0, 0)
+
+    def reset(self):
+        snake_elements = self.all_elements
+        for element in snake_elements:
+            element.reset()
 
     def build_snake(self, elements):
         for _ in range(elements):
